@@ -95,7 +95,7 @@ export class Chat {
         }));
         const messages = await MessageSchema.find().exec();
 
-        socket.emit("users", users);
-        socket.emit("messages", messages);
+        this.io.emit("users", users);
+        this.io.emit("messages", messages);
     }
 }
