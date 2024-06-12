@@ -8,6 +8,6 @@ export interface IMessage extends Document {
 const MessageSchema: Schema = new Schema({
     author: { type: String, required: true },
     content: { type: String, required: true },
-});
+}, { timestamps: true });
 
 export default mongoose.model<IMessage>('Message', MessageSchema);

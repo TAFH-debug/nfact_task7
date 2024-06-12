@@ -123,7 +123,7 @@ export default function Page() {
                 <div className="flex flex-col h-3/5 w-full md:w-2/5 text-black bg-gray-500 rounded-lg m-10">
                     <div className="flex-1 overflow-y-auto p-4 space-y-4">
                         {
-                            messages.reverse().map((message, index) => (
+                            messages.map((message, index) => (
                                     message.author === "System" ? <div key={index} className="w-full text-center m-2 text-blue-300">
                                             {message.content}
                                     </div> :

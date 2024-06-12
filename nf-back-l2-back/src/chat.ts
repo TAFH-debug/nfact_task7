@@ -54,7 +54,9 @@ export class Chat {
     async onMessage(data: Message) {
         await new MessageSchema(data).save();
 
-        const messages = await MessageSchema.find().exec();
+        const messages = await MessageSchema.find().sort({
+            "createdAt": "asc"
+        }).exec();
         this.io.emit("messages", messages);
     }
 
@@ -62,7 +64,9 @@ export class Chat {
         await new MessageSchema({ author: "System", content: `User ${(socket as any).user.username} disconnected.`}).save()
         await UserSchema.findOneAndUpdate({ username: (socket as any).user.username }, { online: false })
 
-        const messages = await MessageSchema.find().exec();
+        const messages = await MessageSchema.find().sort({
+            "createdAt": "asc"
+        }).exec();
         const users = (await UserSchema.find().exec()).map((user) => ({
             username: user.username,
             online: user.online
@@ -93,7 +97,9 @@ export class Chat {
             username: user.username,
             online: user.online
         }));
-        const messages = await MessageSchema.find().exec();
+        const messages = await MessageSchema.find().sort({
+            "createdAt": "asc"
+        }).exec();
 
         this.io.emit("users", users);
         this.io.emit("messages", messages);
